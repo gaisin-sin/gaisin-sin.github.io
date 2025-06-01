@@ -104,6 +104,38 @@
         let waitingForSecondOperand = false;
         const display = document.getElementById('display');
 
+        // キーボード入力をリッスンする
+        document.addEventListener('keydown', handleKeyPress);
+
+        function handleKeyPress(event) {
+            const key = event.key;
+            
+            // 数字の入力
+            if (/^[0-9]$/.test(key)) {
+                addToDisplay(key);
+            }
+            // 演算子の入力
+            else if (['+', '-', '*', '/'].includes(key)) {
+                addToDisplay(key);
+            }
+            // 小数点の入力
+            else if (key === '.') {
+                addToDisplay('.');
+            }
+            // Enter キーで計算実行
+            else if (key === 'Enter') {
+                calculate();
+            }
+            // Escape キーでクリア
+            else if (key === 'Escape') {
+                clearDisplay();
+            }
+            // Backspace キーで一文字削除
+            else if (key === 'Backspace') {
+                backspace();
+            }
+        }
+
         function updateDisplay() {
             display.textContent = displayValue;
         }
